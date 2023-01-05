@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Users List of Emby</h4>
+                <h6 class="card-subtitle"></h6>
+                <div class="d-flex justify-content-end ">
+                    <button type="button" class="btn btn-info btn-rounded ml-auto" data-toggle="modal" data-target="#add-user">New User</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+                        <thead>
+
+                            <!-- usuario name role address img valid status fecha -->
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let user of users">
+                                <td>
+                                    <a [routerLink]="['/dashboard/perfil', user.uid]">
+                                        {{ user.Name }} 
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <span *ngIf="user.Policy.IsDisabled === false" class="label label-success">Active</span>
+                                    <span *ngIf="user.Policy.IsDisabled" class="label label-danger">Offline</span>
+                                </td>
+                                <td>
+                                    <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
+                                        <i *ngIf="user.Policy.IsDisabled === false" class="ti-close" aria-hidden="true"></i>
+                                        <i *ngIf="user.Policy.IsDisabled" class="ti-check" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
