@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { EmbyUsersComponent } from './emby-users/emby-users.component';
   imports: [
     CommonModule,
     RouterModule,
-    PipesModule
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

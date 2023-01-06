@@ -23,7 +23,7 @@
 
                             <tr *ngFor="let user of users">
                                 <td>
-                                    <a [routerLink]="['/dashboard/perfil', user.uid]">
+                                    <a>
                                         {{ user.Name }} 
                                     </a>
                                 </td>
@@ -46,4 +46,52 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- ========================================================= 
+MODAL NEW USER
+======================================================== -->
+<div id="add-user" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" #modalNewUser>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">New User</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal form-material" autocomplete="off" [formGroup]="formNewUser" (ngSubmit)="createUser()">
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <input formControlName="Name" type="text" class="form-control" placeholder="name">
+                            <div *ngIf="validate('Name')" class="form-control-feedback">
+                                <small> Los nombres son obligatorios </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-b-20">
+                        <div class="switch" formGroupName="Policy">
+                            <label>
+                                <input formControlName="IsAdministrator" type="checkbox"><span class="lever"></span> Allow this user to manage the server
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="formSubmitted" class="btn btn-info waves-effect btn-block">                        
+                        <span *ngIf="!formSubmitted" >Save</span>
+                        <span *ngIf="formSubmitted" >Saving</span>
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>

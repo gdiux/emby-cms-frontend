@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 // SERVICES
 import { EmbyUsersService } from 'src/app/services/emby-users.service';
@@ -11,7 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class EmbyUsersComponent implements OnInit {
 
-  constructor(  private embyUsersService: EmbyUsersService){}
+  constructor(  private embyUsersService: EmbyUsersService,
+                private fb: FormBuilder){}
 
   ngOnInit(): void {
 
@@ -67,6 +69,58 @@ export class EmbyUsersComponent implements OnInit {
           console.log(err);          
           Swal.fire('Error', 'an error occurred while connecting to the emby server', 'error');
         }); 
+
+  }
+
+  /** ================================================================
+   *  NEW USER
+  ==================================================================== */
+  public formSubmitted: boolean = false;
+  public formNewUser = this.fb.group({
+    Name: ['', [Validators.required ]],
+    Policy: new FormGroup({
+      IsAdministrator: new FormControl(false)
+    })
+
+  });
+
+  createUser(){
+    
+    this.formSubmitted = true;
+    
+    if (this.formNewUser.invalid) {
+      return;
+    }
+    
+    this.embyUsersService.creatUserEmby(this.formNewUser.value)
+    .subscribe( resp => {
+      
+          this.formSubmitted = false;
+          
+          this.users.push(resp);
+
+          this.formNewUser.reset();
+          Swal.fire('Great', 'The user has been created successfully', 'success');
+          
+        }, (err) => {
+          this.formSubmitted = false;
+          console.log(err);
+          Swal.fire('Error', 'Failed to create user, please try again', 'error');
+        } );
+    
+  }
+
+
+  /** ======================================================================
+   * VALIDATE FORM
+  ====================================================================== */
+  validate( campo: string): boolean{
+    
+    if ( this.formNewUser.get(campo)?.invalid && this.formSubmitted ) {      
+      return true;
+    }else{
+      return false;
+    }
 
   }
 

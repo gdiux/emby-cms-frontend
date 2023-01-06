@@ -41,6 +41,15 @@ export class EmbyUsersService {
 
   }
 
+  /** ================================================================
+   *  CREATE USER EMBY
+  ==================================================================== */
+  creatUserEmby(FormData: any){
+
+    return this.http.post(`${emby_url}/Users/New`, FormData, this.headers)
+
+  }
+
 
   // FIN DE LA CLASE
 }
