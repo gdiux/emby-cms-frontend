@@ -163,13 +163,22 @@ export class EmbyUsersComponent implements OnInit {
   }
 
   /** =============================================================
+   * SELECT SERVER
+  =============================================================== */
+  selectServer(server: Server){
+
+    this.server = server;
+    this.loadUsers();
+
+  }
+
+  /** =============================================================
    * CONFIG SWIPER
   =============================================================== */
   public config = {
 
     slidesPerView:1,
     spaceBetween:10,
-    loop: true,
     pagination: { clickable: true, dynamicBullets: true },
     
     breakpoints:{

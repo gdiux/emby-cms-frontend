@@ -4,10 +4,10 @@
         <swiper [config]="config">
 
             <ng-template swiperSlide *ngFor="let serve of servers">
-                <div class="card">
-                    <div class="box bg-info text-center">
+                <div class="card pointer" (click)="selectServer(serve)">
+                    <div class="box text-center" [ngClass]="{'bg-success': serve === server, 'bg-info': serve !== server}">
                         <h1 class="font-light text-white"> {{ serve.name }} </h1>
-                        <h6 class="text-white">Total Tickets</h6>
+                        <h6 class="text-white"> <small> {{ server.url }} </small> </h6>
                     </div>
                 </div>
             </ng-template>
@@ -31,7 +31,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Enable/Disable</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,8 +50,8 @@
                                 </td>
 
                                 <td>
-                                    <span *ngIf="user.Policy.IsDisabled === false" class="label label-success">Active</span>
-                                    <span *ngIf="user.Policy.IsDisabled" class="label label-danger">Offline</span>
+                                    <span *ngIf="user.Policy.IsDisabled === false" class="label label-success">Enable</span>
+                                    <span *ngIf="user.Policy.IsDisabled" class="label label-danger">Disable</span>
                                 </td>
                                 <td>
                                     <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
