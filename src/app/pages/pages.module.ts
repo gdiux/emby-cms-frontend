@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { SwiperModule } from 'swiper/angular';
+import { PipesModule } from '../pipes/pipes.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 // COMPONENTS
 import { PagesComponent } from './pages.component';
 import { HeaderComponent } from '../shared/header/header.component';
@@ -9,10 +13,9 @@ import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { BreadcrumsComponent } from '../shared/breadcrums/breadcrums.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmbyServersComponent } from './emby-servers/emby-servers.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BreadcrumsComponent,
     DashboardComponent,
     ProfileComponent,
-    EmbyUsersComponent
+    EmbyUsersComponent,
+    EmbyServersComponent
   ],
   exports: [
     DashboardComponent,
@@ -34,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     PipesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SwiperModule
   ]
 })
 export class PagesModule { }

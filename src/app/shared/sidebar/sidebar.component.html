@@ -30,7 +30,7 @@
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
-                        <li><a routerLink="/">Dashboard </a></li>
+                        <li><a routerLinkActive="active" routerLink="/">Dashboard </a></li>
                         <li><a routerLinkActive="active" [routerLink]="['/dashboard/users']">Users </a></li>
                     </ul>
 
@@ -42,7 +42,8 @@
                         <span class="hide-menu">Emby</span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['/dashboard/emby-users']">Users Emby</a></li>
+                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/emby-users']">Users Emby</a></li>
+                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/emby-servers']">Servers Emby</a></li>
                     </ul>
                 </li>
 

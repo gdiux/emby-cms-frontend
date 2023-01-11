@@ -1,5 +1,20 @@
 <div class="row">
     <div class="col-12">
+
+        <swiper [config]="config">
+
+            <ng-template swiperSlide *ngFor="let serve of servers">
+                <div class="card">
+                    <div class="box bg-info text-center">
+                        <h1 class="font-light text-white"> {{ serve.name }} </h1>
+                        <h6 class="text-white">Total Tickets</h6>
+                    </div>
+                </div>
+            </ng-template>
+
+        </swiper>
+
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Users List of Emby</h4>
@@ -20,6 +35,12 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            <tr *ngIf="users.length === 0">
+                                <td colspan="3">
+                                    <h3 class="mb-0">Empty user list...</h3>
+                                </td>
+                            </tr>
 
                             <tr *ngFor="let user of users">
                                 <td>

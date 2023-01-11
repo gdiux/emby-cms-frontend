@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Server } from 'src/app/models/servers.model';
+import { EmbyServersService } from 'src/app/services/emby-servers.service';
 
 // SERVICES
 import { EmbyUsersService } from 'src/app/services/emby-users.service';
 import Swal from 'sweetalert2';
+
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 @Component({
   selector: 'app-emby-users',
@@ -13,12 +21,42 @@ import Swal from 'sweetalert2';
 export class EmbyUsersComponent implements OnInit {
 
   constructor(  private embyUsersService: EmbyUsersService,
+                private embyServersService: EmbyServersService,
                 private fb: FormBuilder){}
 
   ngOnInit(): void {
 
-    // LOAD EMBY USERS
-    this.loadUsers();
+    // CARGAR SERVIDORES
+    this.loadServers();
+
+  }
+
+  /** ================================================================
+   *  LOAD SERVERS EMBY
+  ==================================================================== */
+  public servers: Server[] = [];
+  public server!: Server;
+
+  loadServers(){
+
+    this.embyServersService.loadServers()
+        .subscribe( ({servers}) => {
+
+          if (servers.length === 0) {
+            return;
+          }
+
+          this.server = servers[0];
+          this.servers = servers;
+
+          // CARGAR USUARIOS
+          this.loadUsers();
+
+        }, (err) => {
+          console.log(err);
+          Swal.fire('Error', err.error.msg, 'error');          
+        });
+
   }
 
   /** ================================================================
@@ -27,7 +65,7 @@ export class EmbyUsersComponent implements OnInit {
   public users: any[] = [];
   loadUsers(){
 
-    this.embyUsersService.loadUsersEmby()
+    this.embyUsersService.loadUsersEmby(this.server.url, this.server.apikey)
         .subscribe( (resp:any) => {
 
           this.users = resp.Items;          
@@ -53,7 +91,7 @@ export class EmbyUsersComponent implements OnInit {
       IsDisabled = true;
     }
 
-    this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled })
+    this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
         .subscribe( resp => {
 
           if (IsDisabled) {
@@ -92,7 +130,7 @@ export class EmbyUsersComponent implements OnInit {
       return;
     }
     
-    this.embyUsersService.creatUserEmby(this.formNewUser.value)
+    this.embyUsersService.creatUserEmby(this.formNewUser.value, this.server.url, this.server.apikey)
     .subscribe( resp => {
       
           this.formSubmitted = false;
@@ -120,6 +158,33 @@ export class EmbyUsersComponent implements OnInit {
       return true;
     }else{
       return false;
+    }
+
+  }
+
+  /** =============================================================
+   * CONFIG SWIPER
+  =============================================================== */
+  public config = {
+
+    slidesPerView:1,
+    spaceBetween:10,
+    loop: true,
+    pagination: { clickable: true, dynamicBullets: true },
+    
+    breakpoints:{
+      '500': {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      '768': {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      '1024': {
+        slidesPerView: 4,
+        spaceBetween: 20
+      }
     }
 
   }

@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Servers List of Emby</h4>
+                <h6 class="card-subtitle"></h6>
+                <div class="d-flex justify-content-end ">
+                    <button type="button" class="btn btn-info btn-rounded ml-auto" data-toggle="modal" data-target="#add-server">New Server</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>API Key</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="servers.length === 0">
+                                <td colspan="3">
+                                    <h3 class="mb-0 text-center">Empty list...</h3>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let server of servers">
+                                <td> {{ server.name }} </td>
+                                <td> {{ server.apikey }} </td>
+                                <td>
+                                    <span *ngIf="server.status" class="label label-success">Active</span>
+                                    <span *ngIf="!server.status" class="label label-danger">Offline</span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
+                                        <i *ngIf="!server.status" class="ti-close" aria-hidden="true"></i>
+                                        <i *ngIf="server.status" class="ti-check" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================= 
+MODAL NEW SERVER
+======================================================== -->
+<div id="add-server" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelServers" aria-hidden="true" #modalNewUser>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabelServers">New Server</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal form-material" autocomplete="off" [formGroup]="newServerForm" (ngSubmit)="createServer()">
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <input formControlName="name" type="text" class="form-control" placeholder="name">
+                            <div *ngIf="validate('name')" class="form-control-feedback">
+                                <small> The name is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <input formControlName="apikey" type="text" class="form-control" placeholder="API Key">
+                            <div *ngIf="validate('apikey')" class="form-control-feedback">
+                                <small> The API Key is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <input formControlName="url" type="text" class="form-control" placeholder="URL">
+                            <div *ngIf="validate('url')" class="form-control-feedback">
+                                <small> The URL is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="formSubmitted" class="btn btn-info waves-effect btn-block">                        
+                        <span *ngIf="!formSubmitted" >Save</span>
+                        <span *ngIf="formSubmitted" >Saving</span>
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

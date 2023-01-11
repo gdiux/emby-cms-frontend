@@ -28,25 +28,37 @@ export class EmbyUsersService {
   /** ================================================================
    *  LOAD USERS EMBY
   ==================================================================== */
-  loadUsersEmby(){
-    return this.http.get( `${emby_url}/Users/Query`, this.headers );
+  loadUsersEmby(server: string, apikey:string){
+    return this.http.get( `${server}/Users/Query`, {
+      headers: {
+        'X-Emby-Token': apikey
+      }
+    });
   }
 
   /** ================================================================
    *  DESACTIVE USER EMBY
   ==================================================================== */
-  updatePolicyUser(id: string, body: any){
+  updatePolicyUser(id: string, body: any, server: string, apikey:string){
 
-    return this.http.post(`${emby_url}/Users/${id}/Policy`, body, this.headers)
+    return this.http.post(`${server}/Users/${id}/Policy`, body, {
+      headers: {
+        'X-Emby-Token': apikey
+      }
+    })
 
   }
 
   /** ================================================================
    *  CREATE USER EMBY
   ==================================================================== */
-  creatUserEmby(FormData: any){
+  creatUserEmby(FormData: any, server: string, apikey:string){
 
-    return this.http.post(`${emby_url}/Users/New`, FormData, this.headers)
+    return this.http.post(`${server}/Users/New`, FormData, {
+      headers: {
+        'X-Emby-Token': apikey
+      }
+    })
 
   }
 

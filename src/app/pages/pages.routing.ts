@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
+import { EmbyServersComponent } from './emby-servers/emby-servers.component';
 
 const routes: Routes = [
     
@@ -21,6 +22,7 @@ const routes: Routes = [
           { path: '', component: DashboardComponent, data:{ title: 'Dashboard' } },
           { path: 'profile/:id', component: ProfileComponent, data:{ title: 'Profile' } },
           { path: 'emby-users', component: EmbyUsersComponent, data:{ title: 'Users Emby' } },
+          { path: 'emby-servers', component: EmbyServersComponent, data:{ title: 'Servers Emby' } },
           { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
         ] 
       },    
