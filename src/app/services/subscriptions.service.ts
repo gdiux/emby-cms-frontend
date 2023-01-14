@@ -66,7 +66,7 @@ export class SubscriptionsService {
    *   UPDATE SUBSCRIPTION
   ==================================================================== */
   updateSubscription(formData:any, id: string){
-    return this.http.put<{subscription: Subscriptions, ok: boolean}>(`${base_url}/subscriptions`, formData, this.headers);
+    return this.http.put<{subscription: Subscriptions, ok: boolean}>(`${base_url}/subscriptions/${id}`, formData, this.headers);
   }
 
 

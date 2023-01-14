@@ -44,9 +44,6 @@ export class SubscriptionsComponent implements OnInit {
 
           this.subscriptions = subscriptions;
           this.subscriptionsTemp = subscriptions;
-          
-          console.log(subscriptions);
-          
 
         }, (err) => {
           console.log(err);
@@ -112,7 +109,21 @@ export class SubscriptionsComponent implements OnInit {
           this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, { "IsDisabled": false }, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
           .subscribe( resp => {
 
-                console.log(resp);
+                let fecha = new Date;
+
+                if (this.subscriberSelect.expiration > fecha.getTime()) {
+                  this.subscriberSelect.expiration += 2592000000;
+                }else{
+                  this.subscriberSelect.expiration = fecha.setTime( fecha.getTime() + 2592000000 );
+                }
+
+                this.subscriberSelect.status = true;
+
+                this.subscriptionsService.updateSubscription( this.subscriberSelect,  this.subscriberSelect.subid)
+                    .subscribe( ({subscription}) => {
+                      
+
+                    });
             
             
                 Swal.fire('Great', 'The payment has been saved successfully', 'success');
