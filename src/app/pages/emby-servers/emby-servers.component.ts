@@ -31,10 +31,8 @@ export class EmbyServersComponent implements OnInit {
 
     this.embyServersService.loadServers()
         .subscribe( ({servers}) => {
-
-          console.log(servers);
-          this.servers = servers;
           
+          this.servers = servers;          
 
         }, (err) => {
           console.log(err);

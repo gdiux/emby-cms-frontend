@@ -5,7 +5,7 @@
 
             <ng-template swiperSlide *ngFor="let serve of servers">
                 <div class="card pointer" (click)="selectServer(serve)">
-                    <div class="box text-center" [ngClass]="{'bg-success': serve === server, 'bg-info': serve !== server}">
+                    <div class="box text-center" [ngClass]="{'bg-success': serve === server, 'bg-dark': serve !== server}">
                         <h1 class="font-light text-white"> {{ serve.name }} </h1>
                         <h6 class="text-white"> <small> {{ server.url }} </small> </h6>
                     </div>
@@ -31,7 +31,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Enable/Disable</th>
+                                <th class="text-center">Subscriptions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,13 +50,16 @@
                                 </td>
 
                                 <td>
-                                    <span *ngIf="user.Policy.IsDisabled === false" class="label label-success">Enable</span>
-                                    <span *ngIf="user.Policy.IsDisabled" class="label label-danger">Disable</span>
+
+                                    <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm" [ngClass]="{'btn-success': user.Policy.IsDisabled === false, 'btn-danger': user.Policy.IsDisabled === true}">
+                                        <span *ngIf="user.Policy.IsDisabled === false">Enable</span>
+                                        <span *ngIf="user.Policy.IsDisabled">Disable</span>
+                                    </button>
+
                                 </td>
-                                <td>
-                                    <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
-                                        <i *ngIf="user.Policy.IsDisabled === false" class="ti-close" aria-hidden="true"></i>
-                                        <i *ngIf="user.Policy.IsDisabled" class="ti-check" aria-hidden="true"></i>
+                                <td class="text-center">
+                                    <button (click)="selectUser = user; seletUserSubscriptions()" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target="#subs">
+                                        <i class="ti-bookmark" aria-hidden="true"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -76,8 +79,8 @@ MODAL NEW USER
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">New User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
 
@@ -88,7 +91,7 @@ MODAL NEW USER
                         <div class="col-md-12 m-b-20">
                             <input formControlName="Name" type="text" class="form-control" placeholder="name">
                             <div *ngIf="validate('Name')" class="form-control-feedback">
-                                <small> Los nombres son obligatorios </small>
+                                <small> Name is required </small>
                             </div>
                         </div>
                     </div>
@@ -106,6 +109,49 @@ MODAL NEW USER
                         <span *ngIf="formSubmitted" >Saving</span>
                     </button>
                 </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- ========================================================= 
+MODAL NEW SUBSCRIPTIONS
+======================================================== -->
+<div id="subs" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelsubs" aria-hidden="true" #modalNewUser>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelsubs">Subscription</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- USER SELECT -->
+                <div class="card card-body" *ngIf="selectUser">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3 text-center">
+                            <button class="btn btn-circle btn-xl btn-success" type="button"> {{selectUser.Prefix}} </button>
+                        </div>
+                        <div class="col-md-8 col-lg-9">
+                            <h3 class="box-title m-b-0">{{selectUser.Name}}</h3>
+                            <small *ngIf="!selectUser.Policy.IsDisabled" class="text-success">Enable</small>
+                            <small *ngIf="selectUser.Policy.IsDisabled" class="text-danger">Disable</small>
+                            <p class="mb-0">{{ selectUser.ConnectUserName }}</p>
+                            <p *ngIf="subscriptionUser">Expire: <span class="label label-info label-rounded">{{ subscriptionUser.expiration | date: 'medium' }} </span> </p>
+                        </div>
+                    </div>
+                </div>
+
+                <button (click)="createSubscription()" *ngIf="!subscriptionUserActive" type="button" data-dismiss="modal" [disabled]="submittedSubscriptionNew" class="btn btn-info waves-effect btn-block">                        
+                    <span *ngIf="!submittedSubscriptionNew" >Create Subscription</span>
+                    <span *ngIf="submittedSubscriptionNew" >Saving</span>
+                </button>
 
             </div>
             <div class="modal-footer">

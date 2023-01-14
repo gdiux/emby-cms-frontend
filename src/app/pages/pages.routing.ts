@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
 import { EmbyServersComponent } from './emby-servers/emby-servers.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 const routes: Routes = [
     
@@ -23,6 +24,7 @@ const routes: Routes = [
           { path: 'profile/:id', component: ProfileComponent, data:{ title: 'Profile' } },
           { path: 'emby-users', component: EmbyUsersComponent, data:{ title: 'Users Emby' } },
           { path: 'emby-servers', component: EmbyServersComponent, data:{ title: 'Servers Emby' } },
+          { path: 'subscriptions', component: SubscriptionsComponent, data:{ title: 'Subscriptions' } },
           { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
         ] 
       },    
