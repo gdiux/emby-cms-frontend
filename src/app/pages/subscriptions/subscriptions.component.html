@@ -42,9 +42,11 @@
                                 <span *ngIf="!subscriber.status" class="label label-danger">Disable</span>
                             </td>
                             <td>
-                                <small>
-                                    {{ subscriber.expiration | date:'medium' }}
-                                </small>
+                                <a (click)="subscriberSelect = subscriber" class="text-decoration-none pointer" data-toggle="modal" data-target="#change-expire">
+                                    <small>
+                                        {{ subscriber.expiration | date:'medium' }}
+                                    </small>
+                                </a>
                             </td>
                             <td>
                                 <button (click)="subscriberSelect = subscriber" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target="#add-pay">
@@ -65,7 +67,7 @@
 <!-- ========================================================= 
 MODAL ADD PAY
 ======================================================== -->
-<div id="add-pay" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPayments" aria-hidden="true" #modalNewUser>
+<div id="add-pay" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPayments" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,6 +110,59 @@ MODAL ADD PAY
                         <span *ngIf="formSubmittedPay" >Saving</span>
                     </button>
                 </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- ========================================================= 
+MODAL CHANGE DATE EXPIRE
+======================================================== -->
+<div id="change-expire" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelChangeExpire" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelChangeExpire">Change expiration date</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="card bg-info" *ngIf="subscriberSelect">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <div class="m-r-20 align-self-center">
+                                <span class="display-4 fw-normal text-white">
+                                    <i class="icon-user"></i>
+                                </span>
+                            </div>
+                            <div class="align-self-center">
+                                <h2 class="text-white mb-0">{{ subscriberSelect.name }}</h2>
+                                <h6 *ngIf="subscriberSelect.email" class="text-white"> <i class="ti-email"></i> {{ subscriberSelect.email }}</h6>
+                                <h6 class="text-white mt-2"> Expires: {{ subscriberSelect.expiration | date:'medium' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-12 m-b-20">
+                        <input autocomplete="off" type="datetime-local" class="form-control" placeholder="New date" #newExpire>
+                        <div class="form-control-feedback">
+                            <small> Date is required </small>
+                        </div>
+                    </div>
+                </div>
+
+                <button (click)="changeExpiration(newExpire.value)" type="submit" [disabled]="formSubmittedPay" class="btn btn-info waves-effect btn-block">                        
+                    <span *ngIf="!formSubmittedPay" >Save</span>
+                    <span *ngIf="formSubmittedPay" >Saving</span>
+                </button>
 
             </div>
             <div class="modal-footer">
