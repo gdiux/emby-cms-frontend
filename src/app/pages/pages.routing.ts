@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
 import { EmbyServersComponent } from './emby-servers/emby-servers.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
     
@@ -21,6 +22,7 @@ const routes: Routes = [
         children:
         [
           { path: '', component: DashboardComponent, data:{ title: 'Dashboard' } },
+          { path: 'payments', component: PaymentsComponent, data:{ title: 'Payments' } },
           { path: 'profile/:id', component: ProfileComponent, data:{ title: 'Profile' } },
           { path: 'emby-users', component: EmbyUsersComponent, data:{ title: 'Users Emby' } },
           { path: 'emby-servers', component: EmbyServersComponent, data:{ title: 'Servers Emby' } },

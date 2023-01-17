@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EmbyUsersComponent } from './emby-users/emby-users.component';
 import { EmbyServersComponent } from './emby-servers/emby-servers.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     ProfileComponent,
     EmbyUsersComponent,
     EmbyServersComponent,
-    SubscriptionsComponent
+    SubscriptionsComponent,
+    PaymentsComponent
   ],
   exports: [
     DashboardComponent,

@@ -81,7 +81,7 @@ export class SubscriptionsComponent implements OnInit {
   public formSubmittedPay: boolean = false;
   public subscriberSelect: any;
   public addPaymentForm = this.fb.group({
-    suid: '',
+    subid: '',
     description: ['', [Validators.required]],
     method: ['', [Validators.required]],
     amount: ['', [Validators.required, Validators.min(1)]]
@@ -90,7 +90,7 @@ export class SubscriptionsComponent implements OnInit {
   addPayment(){
 
     this.formSubmittedPay = true;
-    this.addPaymentForm.value.suid = this.subscriberSelect.subid;
+    this.addPaymentForm.value.subid = this.subscriberSelect.subid;
 
     if (this.addPaymentForm.invalid) {
       this.formSubmittedPay = false;

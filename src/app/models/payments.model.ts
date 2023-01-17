@@ -3,7 +3,7 @@ import { Subscriptions } from './subscriptions.model';
 export class Payment {
 
     constructor (
-        public suid: Subscriptions,
+        public subid: Subscriptions,
         public description: string,
         public method: string,
         public amount: number,

@@ -42,8 +42,8 @@ export class PaymentsService {
   /** ================================================================
    *   GET PAYMENTS
   ==================================================================== */
-  loadPayments(){
-    return this.http.get<{payments: Payment[], ok: boolean}>(`${base_url}/payments`, this.headers);
+  loadPayments(skip:number = 0, limit:number = 20){
+    return this.http.get<{payments: Payment[], ok: boolean}>(`${base_url}/payments?skip=${skip}&limit=${limit}`, this.headers);
   }
 
   // FIN DE LA CLASE
