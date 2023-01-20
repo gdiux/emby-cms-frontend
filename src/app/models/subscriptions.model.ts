@@ -11,7 +11,7 @@ export class Subscriptions {
         public status?: boolean,
         public fecha?: Date,
         public _id?: string,
-        public suid?: string,
+        public subid?: string,
     ){}
     
 }

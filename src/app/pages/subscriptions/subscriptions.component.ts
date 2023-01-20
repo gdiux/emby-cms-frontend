@@ -155,18 +155,27 @@ export class SubscriptionsComponent implements OnInit {
    *   CAHNGE DATE EXPIRATION
   ==================================================================== */
   changeExpiration( date: any ){
+
+    let hoy = new Date().getTime();
     
-    if (new Date(date).getTime() < this.subscriberSelect.expiration) {
+    if ( new Date(date).getTime() < hoy) {
       Swal.fire('Error', 'The expiration date must be greater than the current one.', 'warning');
       return;
     }
     
-    this.subscriptionsService.updateSubscription({expiration: new Date(date).getTime()}, this.subscriberSelect.subid)
+    this.subscriptionsService.updateSubscription({expiration: new Date(date).getTime(), status: true}, this.subscriberSelect.subid)
         .subscribe( ({subscription}) => {
 
           // LOAD SUBSCRIPTIONS
-          this.loadSubscriptions();
-          Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
+          this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+          .subscribe( resp => {
+            
+            console.log(resp);
+            this.loadSubscriptions();
+            Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
+              
+
+            });
           
 
         }, (err) => {

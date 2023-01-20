@@ -46,5 +46,12 @@ export class PaymentsService {
     return this.http.get<{payments: Payment[], ok: boolean}>(`${base_url}/payments?skip=${skip}&limit=${limit}`, this.headers);
   }
 
+  /** ================================================================
+   *   POST QUERY PAYMENTS
+  ==================================================================== */
+  loadQueryPayments( skip:number = 0, limit:number = 20, query: any ){
+    return this.http.post<{ payments: Payment[], ok: boolean, total: number }>(`${base_url}/payments/query?skip=${skip}&limit=${limit}`, query, this.headers);
+  }
+
   // FIN DE LA CLASE
 }
