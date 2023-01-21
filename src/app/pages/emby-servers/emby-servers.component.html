@@ -27,13 +27,14 @@
                                 <td> {{ server.name }} </td>
                                 <td> {{ server.apikey }} </td>
                                 <td>
-                                    <span *ngIf="server.status" class="label label-success">Active</span>
-                                    <span *ngIf="!server.status" class="label label-danger">Offline</span>
+                                    <button type="button" class="btn btn-sm" [ngClass]="{'btn-success': server.status, 'btn-danger': !server.status}">
+                                        <span *ngIf="server.status">Enable</span>
+                                        <span *ngIf="!server.status">Disable</span>
+                                    </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
-                                        <i *ngIf="!server.status" class="ti-close" aria-hidden="true"></i>
-                                        <i *ngIf="server.status" class="ti-check" aria-hidden="true"></i>
+                                    <button (click)="selectServer(server)" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target="#edit-server">
+                                        <i class="ti-pencil" aria-hidden="true"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -92,6 +93,69 @@ MODAL NEW SERVER
                     <button type="submit" [disabled]="formSubmitted" class="btn btn-info waves-effect btn-block">                        
                         <span *ngIf="!formSubmitted" >Save</span>
                         <span *ngIf="formSubmitted" >Saving</span>
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- ========================================================= 
+MODAL EDIT SERVER
+======================================================== -->
+<div id="edit-server" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabelServersEdit" aria-hidden="true" #modalNewUser>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabelServersEdit">Edit Server</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal form-material" autocomplete="off" [formGroup]="editServerForm" (ngSubmit)="updateServer()">
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="nameE">Name</label>
+                            <input id="nameE" formControlName="name" type="text" class="form-control" placeholder="name">
+                            <div *ngIf="validateEdit('name')" class="form-control-feedback">
+                                <small> The name is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="apikeyE">API Key</label>
+                            <input id="apikeyE" formControlName="apikey" type="text" class="form-control" placeholder="API Key">
+                            <div *ngIf="validateEdit('apikey')" class="form-control-feedback">
+                                <small> The API Key is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-danger">
+
+                        <div class="col-md-12 m-b-20">
+                            <label for="urlE">URL</label>
+                            <input id="urlE" formControlName="url" type="text" class="form-control" placeholder="URL">
+                            <div *ngIf="validateEdit('url')" class="form-control-feedback">
+                                <small> The URL is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="formSubmittedEdit" class="btn btn-info waves-effect btn-block">                        
+                        <span *ngIf="!formSubmittedEdit" >Save</span>
+                        <span *ngIf="formSubmittedEdit" >Saving</span>
                     </button>
                 </form>
 

@@ -89,5 +89,68 @@ export class EmbyServersComponent implements OnInit {
 
   }
 
+  /** ================================================================
+   *  SELECT SERVER
+  ==================================================================== */
+  selectServer(server: Server){
+
+    this.editServerForm.setValue({
+      id: server.sid!,
+      name: server.name,
+      apikey: server.apikey,
+      url: server.url
+    });
+
+  }
+
+  /** ================================================================
+   *  EDIT SERVER
+  ==================================================================== */
+  public formSubmittedEdit: boolean = false;
+  public editServerForm = this.fb.group({
+    id: ['', [Validators.required]],
+    name: ['', [Validators.required]],
+    apikey: ['', [Validators.required]],
+    url: ['', [Validators.required]],
+
+  });
+
+  updateServer(){
+
+    this.formSubmittedEdit = true;
+    
+    if (this.editServerForm.invalid) {
+      return;
+    }
+    
+    this.embyServersService.updateServer(this.editServerForm.value, this.editServerForm.value.id!)
+    .subscribe( ({server}) => {
+
+        Swal.fire('Great', 'The server has been successfully updated', 'success');
+        this.formSubmittedEdit = false;
+        this.loadServers();
+        
+      }, (err) => {
+        this.formSubmittedEdit = false;
+        console.log(err);
+          Swal.fire('Error', err.error.msg, 'error');          
+        });
+
+  }
+
+  /** ================================================================
+   *  VALIDATE NEW FORM
+  ==================================================================== */
+  validateEdit(campo:string): boolean{
+
+    if (this.editServerForm.get(campo)?.invalid && this.formSubmittedEdit) {
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
+
   // FIN DE LA CLASE
 }

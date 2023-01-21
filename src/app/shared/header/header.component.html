@@ -86,11 +86,11 @@
                                     <div class="u-text">
                                         <h4> {{ user.name }} </h4>
                                         <p class="text-muted">User: {{ user.usuario }}</p>
-                                        <a [routerLink]="['/dashboard/perfil', user.uid]" class="btn btn-rounded btn-danger btn-sm">Profile</a></div>
+                                        <a [routerLink]="['/dashboard/profile', user.uid]" class="btn btn-rounded btn-danger btn-sm">Profile</a></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a [routerLink]="['/dashboard/perfil', user.uid]" routerLinkActive="active"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a [routerLink]="['/dashboard/profile', user.uid]" routerLinkActive="active"><i class="ti-user"></i> My Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a class="pointer" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
