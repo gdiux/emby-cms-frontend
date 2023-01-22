@@ -21,33 +21,31 @@
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">Menu</li>
-                <li>
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <i class="mdi mdi-gauge"></i>
-                        <span class="hide-menu">Dashboard 
-                            <!-- <span class="label label-rouded label-themecolor pull-right">4</span> -->
-                        </span>
+
+                <li routerLinkActive="active">
+                    <a class="waves-effect waves-dark" [routerLink]="['/dashboard/home']">
+                        <i class="mdi mdi mdi-gauge"></i>
+                        <span class="hide-menu">Dashboard</span>
                     </a>
-
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" routerLink="/">Dashboard </a></li>
-                        <!-- <li><a routerLinkActive="active" [routerLink]="['/dashboard/users']">Users </a></li> -->
-                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/subscriptions']">Subscriptions </a></li>
-                    </ul>
-
                 </li>
-
-                <li>
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <i class="mdi mdi-city"></i>
-                        <span class="hide-menu">Emby</span>
+                <li routerLinkActive="active">
+                    <a class="waves-effect waves-dark" [routerLink]="['/dashboard/subscriptions']">
+                        <i class="mdi mdi-account"></i>
+                        <span class="hide-menu">Subscribers</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/emby-users']">Users Emby</a></li>
-                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/emby-servers']">Servers Emby</a></li>
-                    </ul>
                 </li>
-
+                <li routerLinkActive="active">
+                    <a class="waves-effect waves-dark" [routerLink]="['/dashboard/emby-users']">
+                        <i class="mdi mdi-account-box-outline"></i>
+                        <span class="hide-menu">Users Emby</span>
+                    </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a class="waves-effect waves-dark" [routerLink]="['/dashboard/emby-servers']">
+                        <i class="mdi mdi-database"></i>
+                        <span class="hide-menu">Servers Emby</span>
+                    </a>
+                </li>
                 <li routerLinkActive="active">
                     <a class="waves-effect waves-dark" [routerLink]="['/dashboard/payments']">
                         <i class="mdi mdi-credit-card-multiple"></i>

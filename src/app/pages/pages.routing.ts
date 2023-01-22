@@ -21,13 +21,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children:
         [
-          { path: '', component: DashboardComponent, data:{ title: 'Dashboard' } },
+          { path: 'home', component: DashboardComponent, data:{ title: 'Dashboard' } },
           { path: 'payments', component: PaymentsComponent, data:{ title: 'Payments' } },
           { path: 'profile/:id', component: ProfileComponent, data:{ title: 'Profile' } },
           { path: 'emby-users', component: EmbyUsersComponent, data:{ title: 'Users Emby' } },
           { path: 'emby-servers', component: EmbyServersComponent, data:{ title: 'Servers Emby' } },
           { path: 'subscriptions', component: SubscriptionsComponent, data:{ title: 'Subscriptions' } },
-          { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+          { path: '', redirectTo: '/dashboard/home', pathMatch: 'full' }
         ] 
       },    
 ];
