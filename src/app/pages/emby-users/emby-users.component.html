@@ -17,7 +17,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Users List of Emby</h4>
+                <h4 class="card-title">Users</h4>
                 <h6 class="card-subtitle"></h6>
                 <div class="d-flex justify-content-end ">
                     <button type="button" class="btn btn-info btn-rounded ml-auto" data-toggle="modal" data-target="#add-user">New User</button>
@@ -52,8 +52,8 @@
                                 <td>
 
                                     <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm" [ngClass]="{'btn-success': user.Policy.IsDisabled === false, 'btn-danger': user.Policy.IsDisabled === true}">
-                                        <span *ngIf="user.Policy.IsDisabled === false">Enable</span>
-                                        <span *ngIf="user.Policy.IsDisabled">Disable</span>
+                                        <span *ngIf="user.Policy.IsDisabled === false">Enabled</span>
+                                        <span *ngIf="user.Policy.IsDisabled">Disabled</span>
                                     </button>
 
                                 </td>
@@ -140,8 +140,8 @@ MODAL NEW SUBSCRIPTIONS
                         </div>
                         <div class="col-md-8 col-lg-9">
                             <h3 class="box-title m-b-0">{{selectUser.Name}}</h3>
-                            <small *ngIf="!selectUser.Policy.IsDisabled" class="text-success">Enable</small>
-                            <small *ngIf="selectUser.Policy.IsDisabled" class="text-danger">Disable</small>
+                            <small *ngIf="!selectUser.Policy.IsDisabled" class="text-success">Enabled</small>
+                            <small *ngIf="selectUser.Policy.IsDisabled" class="text-danger">Disabled</small>
                             <p class="mb-0">{{ selectUser.ConnectUserName }}</p>
                             <p *ngIf="subscriptionUser">Expire: <span class="label label-info label-rounded">{{ subscriptionUser.expiration | date: 'medium' }} </span> </p>
                         </div>

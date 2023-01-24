@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Servers List of Emby</h4>
+                <h4 class="card-title">Servers</h4>
                 <h6 class="card-subtitle"></h6>
                 <div class="d-flex justify-content-end ">
                     <button type="button" class="btn btn-info btn-rounded ml-auto" data-toggle="modal" data-target="#add-server">New Server</button>
@@ -28,8 +28,8 @@
                                 <td> {{ server.apikey }} </td>
                                 <td>
                                     <button type="button" class="btn btn-sm" [ngClass]="{'btn-success': server.status, 'btn-danger': !server.status}">
-                                        <span *ngIf="server.status">Enable</span>
-                                        <span *ngIf="!server.status">Disable</span>
+                                        <span *ngIf="server.status">Enabled</span>
+                                        <span *ngIf="!server.status">Disabled</span>
                                     </button>
                                 </td>
                                 <td>
