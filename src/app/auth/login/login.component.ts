@@ -51,7 +51,7 @@ export class LoginComponent {
           }
 
           // INGRESAR
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard/home');
 
         }, (err) => { Swal.fire('Error', err.error.msg, 'error'); });
 

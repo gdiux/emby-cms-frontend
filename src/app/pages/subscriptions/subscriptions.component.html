@@ -52,6 +52,9 @@
                                 <button (click)="subscriberSelect = subscriber" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target="#add-pay">
                                     <i class="ti-receipt h5" aria-hidden="true"></i>
                                 </button>
+                                <button (click)="delete(subscriber.subid!)" type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn">
+                                    <i class="ti-close h5" aria-hidden="true"></i>
+                                </button>
                             </td>
                         </tr>
 

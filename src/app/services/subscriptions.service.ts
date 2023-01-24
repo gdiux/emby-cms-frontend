@@ -69,6 +69,13 @@ export class SubscriptionsService {
     return this.http.put<{subscription: Subscriptions, ok: boolean}>(`${base_url}/subscriptions/${id}`, formData, this.headers);
   }
 
+  /** ================================================================
+   *   DELETE SUSBCRIBER
+  ==================================================================== */
+  deleteSubscriber(id: string){
+    return this.http.delete<{ok: boolean, msg: string}>(`${base_url}/subscriptions/${id}`, this.headers);
+  }
+
 
   // FIN DE LA CLASES
 }

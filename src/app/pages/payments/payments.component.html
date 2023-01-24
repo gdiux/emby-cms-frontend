@@ -78,9 +78,19 @@
 
                             <tr class="footable-even" *ngFor="let payment of payments">
                                 <td>
-                                    {{ payment.subid.name }}
+                                    <span *ngIf="payment.subid">
+                                        {{ payment.subid.name }}
+                                    </span>
+                                    <span *ngIf="!payment.subid" class="text-danger">
+                                        Deleted subscriber
+                                    </span>
+
                                 </td>
-                                <td> {{ payment.subid.email }} </td>
+                                <td>
+                                    <span *ngIf="payment.subid">
+                                        {{ payment.subid.email }}
+                                    </span>
+                                </td>
                                 <td>
                                     {{ payment.description }}
                                 </td>

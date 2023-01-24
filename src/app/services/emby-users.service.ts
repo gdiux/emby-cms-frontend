@@ -37,7 +37,7 @@ export class EmbyUsersService {
   }
 
   /** ================================================================
-   *  DESACTIVE USER EMBY
+   *  DESACTIVE USER EMBY 
   ==================================================================== */
   updatePolicyUser(id: string, body: any, server: string, apikey:string){
 

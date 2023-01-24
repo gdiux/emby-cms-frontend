@@ -5,7 +5,7 @@ import { LoginRoutingModule } from './auth/auth.routing';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/dashboard/home', pathMatch: 'full' }
 
 ];
 

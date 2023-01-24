@@ -6,12 +6,13 @@
   
   base_url: 'http://localhost:5000/api',
   base_url: 'https://embydonny.ddns.net/api',
+  base_url: 'https://dodview.online/api',
  
 */
 
 export const environment = {
   production: false,
-  base_url: 'https://embydonny.ddns.net/api',
+  base_url: 'https://dodview.online/api',
   api_key: 'ee4d7ba82b8b4695bfdd0c55bbffc05d',
   emby_url: 'https://embyd.mediafunbox16.xyz/emby'
 };
