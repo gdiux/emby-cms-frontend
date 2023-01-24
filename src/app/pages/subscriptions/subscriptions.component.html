@@ -38,8 +38,8 @@
                                 {{ subscriber.server!.name }}
                             </td>
                             <td>
-                                <span *ngIf="subscriber.status" class="label label-success">Enable</span>
-                                <span *ngIf="!subscriber.status" class="label label-danger">Disable</span>
+                                <span *ngIf="subscriber.status" class="label label-success">Enabled</span>
+                                <span *ngIf="!subscriber.status" class="label label-danger">Disabled</span>
                             </td>
                             <td>
                                 <a (click)="subscriberSelect = subscriber" class="text-decoration-none pointer" data-toggle="modal" data-target="#change-expire">
