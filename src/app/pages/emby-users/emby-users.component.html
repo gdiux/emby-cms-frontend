@@ -7,7 +7,7 @@
                 <div class="card pointer" (click)="selectServer(serve)">
                     <div class="box text-center" [ngClass]="{'bg-success': serve === server, 'bg-dark': serve !== server}">
                         <h1 class="font-light text-white"> {{ serve.name }} </h1>
-                        <h6 class="text-white"> <small> {{ server.url }} </small> </h6>
+                        <h6 class="text-white"> <small> {{ serve.url }} </small> </h6>
                     </div>
                 </div>
             </ng-template>
