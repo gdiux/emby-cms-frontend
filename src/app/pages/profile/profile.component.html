@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="m-t-30 text-center">
-                    <img src="../assets/images/users/5.jpg" class="img-circle" width="150" />
+                    <img src="../assets/images/users/user-default.png" class="img-circle" width="150" />
                     <h4 class="card-title m-t-10"> {{ user.name }} </h4>
                     <h6 class="card-subtitle"> {{ user.role }} </h6>
 
@@ -41,7 +41,7 @@
                         <form class="form-horizontal form-material" [formGroup]="formUpdate" (ngSubmit)="updateUser()">
 
                             <div class="form-group" [ngClass]="{'has-danger': validateEditForm('usuario')}">
-                                <label class="col-md-12"> Usuario </label>
+                                <label class="col-md-12"> User </label>
                                 <div class="col-md-12">
                                     <input formControlName="usuario" type="text" placeholder="Johnathan Doe" class="form-control " [ngClass]="{'form-control-danger': validateEditForm('usuario')}">
                                     <small *ngIf="validateEditForm('usuario')" class="form-control-feedback animated fadeIn">Este campo es obligatorio</small>
@@ -50,7 +50,7 @@
                             </div>
 
                             <div class="form-group" [ngClass]="{'has-danger': validateEditForm('name')}">
-                                <label class="col-md-12"> Nombres </label>
+                                <label class="col-md-12"> Name </label>
                                 <div class="col-md-12">
                                     <input formControlName="name" type="text" placeholder="Johnathan Doe" class="form-control form-control-line" [ngClass]="{'form-control-danger': validateEditForm('name')}">
                                     <small *ngIf="validateEditForm('name')" class="form-control-feedback animated fadeIn">Este campo es obligatorio</small>
@@ -75,7 +75,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-success">Actualizar perfil</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
                         </form>
