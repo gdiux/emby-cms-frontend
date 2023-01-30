@@ -82,32 +82,57 @@ export class EmbyUsersComponent implements OnInit {
   ==================================================================== */
   desactive(id: string, IsDisabled: boolean, IsAdministrator: boolean){
 
-    if (IsAdministrator) {
-      Swal.fire('Attention', 'you cant disable an administrator', 'warning');
-      return;      
-    }
-
     if (IsDisabled) {
       IsDisabled = false;
     }else{
       IsDisabled = true;
     }
 
-    this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
+    if (IsAdministrator) {
+
+      this.embyUsersService.updatePolicyUser(id, { IsAdministrator: false, "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
         .subscribe( resp => {
 
-          if (IsDisabled) {
-            Swal.fire('Great', 'The user has been deactivated successfully!', 'success');
-          }else{
-            Swal.fire('Great', 'The user has been activated successfully!', 'success');
-          }
+          this.embyUsersService.updatePolicyUser(id, { IsAdministrator: true }, this.server.url, this.server.apikey)
+            .subscribe( resp => {
 
-          this.loadUsers();
+              if (IsDisabled) {
+                Swal.fire('Great', 'The user has been deactivated successfully!', 'success');
+              }else{
+                Swal.fire('Great', 'The user has been activated successfully!', 'success');
+              }
 
-        }, (err) => {
-          console.log(err);          
-          Swal.fire('Error', 'an error occurred while connecting to the emby server', 'error');
-        }); 
+              this.loadUsers();
+              
+            }, (err) => {
+              console.log(err);          
+              Swal.fire('Error', 'an error occurred while connecting to the emby server', 'error');
+            }); 
+            
+          }, (err) => {
+            console.log(err);          
+            Swal.fire('Error', 'an error occurred while connecting to the emby server', 'error');
+          }); 
+
+    }else{
+
+      this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
+          .subscribe( resp => {
+  
+            if (IsDisabled) {
+              Swal.fire('Great', 'The user has been deactivated successfully!', 'success');
+            }else{
+              Swal.fire('Great', 'The user has been activated successfully!', 'success');
+            }
+  
+            this.loadUsers();
+  
+          }, (err) => {
+            console.log(err);          
+            Swal.fire('Error', 'an error occurred while connecting to the emby server', 'error');
+          }); 
+    } 
+
 
   }
 
@@ -235,8 +260,7 @@ export class EmbyUsersComponent implements OnInit {
         })
 
   }
-
-
+  
   /** =============================================================
    * CONFIG SWIPER
   =============================================================== */

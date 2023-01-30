@@ -162,26 +162,52 @@ export class SubscriptionsComponent implements OnInit {
       Swal.fire('Error', 'The expiration date must be greater than the current one.', 'warning');
       return;
     }
-    
-    this.subscriptionsService.updateSubscription({expiration: new Date(date).getTime(), status: true}, this.subscriberSelect.subid)
-        .subscribe( ({subscription}) => {
 
-          // LOAD SUBSCRIPTIONS
-          this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
-          .subscribe( resp => {
-            
-            console.log(resp);
-            this.loadSubscriptions();
-            Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
-              
-
-            });
+    this.embyUsersService.loadUserEmbyId(this.subscriberSelect.server.url, this.subscriberSelect.server.apikey, this.subscriberSelect.uid)
+        .subscribe( (userDB: any) => {
           
 
-        }, (err) => {
-          console.log(err);
-          Swal.fire('Error', err.error.msg, 'error');
+          this.subscriptionsService.updateSubscription({expiration: new Date(date).getTime(), status: true}, this.subscriberSelect.subid)
+            .subscribe( ({subscription}) => {
+
+              if (!userDB.IsDisabled) {
+                Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
+                this.loadSubscriptions();
+                return;
+              }
+
+              if (!userDB.IsAdministrator) {
+                
+                // UPDATE USER EMBY
+                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+                .subscribe( resp => {
+                  this.loadSubscriptions();
+                  Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
+                });
+                // UPDATE USER EMBY
+
+              }else{       
+
+                // UPDATE USER EMBY
+                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false, "IsAdministrator": true}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+                .subscribe( resp => {
+                  this.loadSubscriptions();
+                  Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
+                });
+                // UPDATE USER EMBY
+
+              }    
+              
+              this.loadSubscriptions();
+
+            }, (err) => {
+              console.log(err);
+              Swal.fire('Error', err.error.msg, 'error');
+            });
+
         });
+    
+    
 
   }
 

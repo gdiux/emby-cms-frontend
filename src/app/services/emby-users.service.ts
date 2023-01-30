@@ -37,6 +37,18 @@ export class EmbyUsersService {
   }
 
   /** ================================================================
+   *  LOAD USERS EMBY BY ID
+  ==================================================================== */
+  loadUserEmbyId(server: string, apikey: string, id: string){
+    return this.http.get(`${server}/Users/${id}`, 
+    {
+      headers: {
+        'X-Emby-Token': apikey
+      }
+    })
+  }
+
+  /** ================================================================
    *  DESACTIVE USER EMBY 
   ==================================================================== */
   updatePolicyUser(id: string, body: any, server: string, apikey:string){
