@@ -245,5 +245,91 @@ export class SubscriptionsComponent implements OnInit {
 
   }
 
+  /** ================================================================
+   *  DESACTIVE USERS EMBY
+  ==================================================================== */
+  desactive(subscriber: any, i: number){
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure to change the status?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'yes, change'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.embyUsersService.loadUserEmbyId(subscriber.server.url, subscriber.server.apikey, subscriber.uid)
+        .subscribe( (user: any) => {
+          
+          // CHANGE STATUS
+          let status = true;
+          let statusSub = false;
+          if (user.Policy.IsDisabled){ status = false; statusSub = true;}
+          // CHANGE STATUS
+
+          if (!user.Policy.IsAdministrator) {
+
+            // UPDATE USER EMBY
+            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status}, subscriber.server.url, subscriber.server.apikey)
+            .subscribe( resp => {
+              
+              // UPDATE SUBSCRIBER
+              this.subscriptionsService.updateSubscription( {status: statusSub}, subscriber.subid )
+                  .subscribe( ({subscription}) => {
+                    
+                    this.subscriptions[i].status = statusSub;
+
+                    if (status) {
+                      Swal.fire('Great', 'The user has been deactivated successfully!', 'success');
+                    }else{
+                      Swal.fire('Great', 'The user has been activated successfully!', 'success');
+                    }
+                  }, (err) => {
+                    console.log(err);                    
+                  });
+              // UPDATE SUBSCRIBER
+
+            });
+            // UPDATE USER EMBY
+            
+          }else{
+
+            // UPDATE USER EMBY
+            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status, "IsAdministrator": true}, subscriber.server.url, subscriber.server.apikey)
+            .subscribe( resp => {
+              
+              // UPDATE SUBSCRIBER
+              this.subscriptionsService.updateSubscription( {status: statusSub}, subscriber.subid )
+                  .subscribe( ({subscription}) => {
+                    
+                    this.subscriptions[i].status = statusSub;
+
+                    if (status) {
+                      Swal.fire('Great', 'The user has been deactivated successfully!', 'success');
+                    }else{
+                      Swal.fire('Great', 'The user has been activated successfully!', 'success');
+                    }
+                  }, (err) => {
+                    console.log(err);                    
+                  });
+              // UPDATE SUBSCRIBER
+
+            });
+            // UPDATE USER EMBY
+
+          }      
+
+        })        
+
+      }
+    })
+
+       
+
+  }
+
   // FIN DE LA CLASE
 }

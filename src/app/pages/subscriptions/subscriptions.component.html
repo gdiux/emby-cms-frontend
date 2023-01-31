@@ -29,7 +29,7 @@
                             <td colspan="5" class="text-center">No results found...</td>
                         </tr>
 
-                        <tr class="footable-even" *ngFor="let subscriber of subscriptions">
+                        <tr class="footable-even" *ngFor="let subscriber of subscriptions; let i = index">
                             <td>
                                 {{ subscriber.name }}
                             </td>
@@ -38,8 +38,10 @@
                                 {{ subscriber.server!.name }}
                             </td>
                             <td>
-                                <span *ngIf="subscriber.status" class="label label-success">Enabled</span>
-                                <span *ngIf="!subscriber.status" class="label label-danger">Disabled</span>
+                                <button (click)="desactive(subscriber, i)" type="button" class="btn btn-sm" [ngClass]="{'btn-success': subscriber.status, 'btn-danger': !subscriber.status}">
+                                    <span *ngIf="subscriber.status" >Enabled</span>
+                                    <span *ngIf="!subscriber.status">Disabled</span>
+                                </button>
                             </td>
                             <td>
                                 <a (click)="subscriberSelect = subscriber" class="text-decoration-none pointer" data-toggle="modal" data-target="#change-expire">
