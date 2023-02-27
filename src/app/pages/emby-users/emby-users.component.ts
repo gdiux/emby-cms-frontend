@@ -78,9 +78,9 @@ export class EmbyUsersComponent implements OnInit {
   }
 
   /** ================================================================
-   *  DESACTIVE USERS EMBY
+   *  DESACTIVATE EMBY USERS
   ==================================================================== */
-  desactive(id: string, IsDisabled: boolean, IsAdministrator: boolean){
+  desactive(id: string, IsDisabled: boolean, IsAdministrator: boolean, SimultaneousStreamLimit:any){
 
     if (IsDisabled) {
       IsDisabled = false;
@@ -90,10 +90,10 @@ export class EmbyUsersComponent implements OnInit {
 
     if (IsAdministrator) {
 
-      this.embyUsersService.updatePolicyUser(id, { IsAdministrator: false, "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
+      this.embyUsersService.updatePolicyUser(id, { IsAdministrator: false, "IsDisabled":IsDisabled, "SimultaneousStreamLimit": SimultaneousStreamLimit }, this.server.url, this.server.apikey)
         .subscribe( resp => {
 
-          this.embyUsersService.updatePolicyUser(id, { IsAdministrator: true }, this.server.url, this.server.apikey)
+          this.embyUsersService.updatePolicyUser(id, { IsAdministrator: true, "SimultaneousStreamLimit": SimultaneousStreamLimit }, this.server.url, this.server.apikey)
             .subscribe( resp => {
 
               if (IsDisabled) {
@@ -116,7 +116,7 @@ export class EmbyUsersComponent implements OnInit {
 
     }else{
 
-      this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled }, this.server.url, this.server.apikey)
+      this.embyUsersService.updatePolicyUser(id, { "IsDisabled":IsDisabled, "SimultaneousStreamLimit": SimultaneousStreamLimit }, this.server.url, this.server.apikey)
           .subscribe( resp => {
   
             if (IsDisabled) {

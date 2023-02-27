@@ -51,7 +51,7 @@
 
                                 <td>
 
-                                    <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator)" type="button" class="btn btn-sm" [ngClass]="{'btn-success': user.Policy.IsDisabled === false, 'btn-danger': user.Policy.IsDisabled === true}">
+                                    <button (click)="desactive(user.Id, user.Policy.IsDisabled, user.Policy.IsAdministrator, user.Policy.SimultaneousStreamLimit)" type="button" class="btn btn-sm" [ngClass]="{'btn-success': user.Policy.IsDisabled === false, 'btn-danger': user.Policy.IsDisabled === true}">
                                         <span *ngIf="user.Policy.IsDisabled === false">Enabled</span>
                                         <span *ngIf="user.Policy.IsDisabled">Disabled</span>
                                     </button>

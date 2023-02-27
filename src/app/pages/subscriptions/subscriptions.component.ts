@@ -96,17 +96,20 @@ export class SubscriptionsComponent implements OnInit {
       this.formSubmittedPay = false;
       return;
     }
-    
-    this.paymentsService.addPayments(this.addPaymentForm.value)
+
+    this.embyUsersService.loadUserEmbyId(this.subscriberSelect.server.url, this.subscriberSelect.server.apikey, this.subscriberSelect.uid)
+        .subscribe( (user: any) => {
+
+          this.paymentsService.addPayments(this.addPaymentForm.value)
         .subscribe( ({payment}) => {
 
           this.formSubmittedPay = false;
           this.addPaymentForm.reset();
 
-          // console.log(this.subscriberSelect);
+          // console.log(this.subscriberSelect); SimultaneousStreamLimit
           
           
-          this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, { "IsDisabled": false }, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+          this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, { "IsDisabled": false, "SimultaneousStreamLimit": user.Policy.SimultaneousStreamLimit }, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
           .subscribe( resp => {
 
                 let fecha = new Date;
@@ -138,6 +141,11 @@ export class SubscriptionsComponent implements OnInit {
           this.formSubmittedPay = false;
           Swal.fire('Error', err.error.msg, 'error');          
         });
+          
+
+        });
+    
+    
 
   }
 
@@ -179,7 +187,7 @@ export class SubscriptionsComponent implements OnInit {
               if (!userDB.IsAdministrator) {
                 
                 // UPDATE USER EMBY
-                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false, "SimultaneousStreamLimit": userDB.Policy.SimultaneousStreamLimit}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
                 .subscribe( resp => {
                   this.loadSubscriptions();
                   Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
@@ -189,7 +197,7 @@ export class SubscriptionsComponent implements OnInit {
               }else{       
 
                 // UPDATE USER EMBY
-                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false, "IsAdministrator": true}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
+                this.embyUsersService.updatePolicyUser(this.subscriberSelect.uid, {"IsDisabled": false, "IsAdministrator": true, "SimultaneousStreamLimit": userDB.Policy.SimultaneousStreamLimit}, this.subscriberSelect.server.url, this.subscriberSelect.server.apikey)
                 .subscribe( resp => {
                   this.loadSubscriptions();
                   Swal.fire('Great', 'The expiration date has been updated, successfully', 'success');
@@ -273,7 +281,7 @@ export class SubscriptionsComponent implements OnInit {
           if (!user.Policy.IsAdministrator) {
 
             // UPDATE USER EMBY
-            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status}, subscriber.server.url, subscriber.server.apikey)
+            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status, "SimultaneousStreamLimit": user.Policy.SimultaneousStreamLimit}, subscriber.server.url, subscriber.server.apikey)
             .subscribe( resp => {
               
               // UPDATE SUBSCRIBER
@@ -298,7 +306,7 @@ export class SubscriptionsComponent implements OnInit {
           }else{
 
             // UPDATE USER EMBY
-            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status, "IsAdministrator": true}, subscriber.server.url, subscriber.server.apikey)
+            this.embyUsersService.updatePolicyUser(subscriber.uid, {"IsDisabled": status, "IsAdministrator": true, "SimultaneousStreamLimit": user.Policy.SimultaneousStreamLimit}, subscriber.server.url, subscriber.server.apikey)
             .subscribe( resp => {
               
               // UPDATE SUBSCRIBER
